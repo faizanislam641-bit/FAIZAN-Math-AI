@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="FAIZAN Math AI - Free math and equation solver with image OCR.">
+  <meta name="theme-color" content="#070914">
+  <title>FAIZAN Math AI</title>
+  <link rel="icon" href="assets/favicon.svg">
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Math engine -->
+  <script src="https://cdn.jsdelivr.net/npm/nerdamer@1.1.13/all.min.js"></script>
+  <!-- Image-to-text OCR -->
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+</head>
+
+<body>
+  <div id="mathBackground" class="math-background"></div>
+  <div class="background-grid"></div>
+  <div class="cursor-glow"></div>
+
+  <header class="topbar">
+    <a class="brand" href="#">
+      <span class="brand-icon">∑</span>
+      <span>FAIZAN <b>Math AI</b></span>
+    </a>
+    <div class="top-actions">
+      <span class="status-dot"></span>
+      <span>Free Math Solver</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-badge">FREE • NO API KEY • IMAGE MATH</div>
+      <h1>Math Solving, <span>Made Smarter.</span></h1>
+      <p>
+        Solve equations, algebra, calculus, trigonometry, matrices and many other
+        mathematical problems. You can also upload a math image and extract the problem automatically.
+      </p>
+    </section>
+
+    <section class="solver-card">
+      <div class="card-heading">
+        <div>
+          <span class="eyebrow">MATH SOLVER</span>
+          <h2>Enter your problem</h2>
+        </div>
+        <button id="clearBtn" class="ghost-btn" type="button">Clear</button>
+      </div>
+
+      <div class="input-wrap">
+        <textarea id="mathInput" rows="4" spellcheck="false"
+          placeholder="Example: x^2 - 5x + 6 = 0&#10;or: integrate(x^2, x)&#10;or: derivative(sin(x), x)"></textarea>
+        <div class="input-hint">Tip: use ^ for powers. Example: x^2 + 3x - 4 = 0</div>
+      </div>
+
+      <div class="controls">
+        <label>
+          <span>Variable</span>
+          <select id="variableSelect">
+            <option value="x">x</option>
+            <option value="y">y</option>
+            <option value="z">z</option>
+            <option value="t">t</option>
+            <option value="a">a</option>
+          </select>
+        </label>
+
+        <button id="solveBtn" class="primary-btn" type="button">
+          <span>✦</span> Solve Math
+        </button>
+
+        <label class="upload-btn">
+          <input id="imageInput" type="file" accept="image/*">
+          <span>⌁</span> Upload Math Image
+        </label>
+      </div>
+
+      <div id="imagePreviewBox" class="image-preview-box hidden">
+        <div class="preview-head">
+          <strong>Uploaded image</strong>
+          <button id="removeImageBtn" class="mini-btn" type="button">Remove</button>
+        </div>
+        <img id="imagePreview" alt="Uploaded math problem preview">
+        <div id="ocrStatus" class="ocr-status"></div>
+      </div>
+
+      <div class="examples">
+        <span>Try:</span>
+        <button data-example="x^2 - 5x + 6 = 0">Quadratic</button>
+        <button data-example="2x + 7 = 19">Linear</button>
+        <button data-example="sin(x)^2 + cos(x)^2">Identity</button>
+        <button data-example="integrate(x^2, x)">Integral</button>
+        <button data-example="derivative(x^3 + 2x, x)">Derivative</button>
+        <button data-example="factor(x^2 - 9)">Factor</button>
+      </div>
+
+      <div id="resultBox" class="result-box hidden">
+        <div class="result-title">
+          <span>✓</span>
+          <strong>Result</strong>
+        </div>
+        <pre id="resultText"></pre>
+      </div>
+
+      <div id="errorBox" class="error-box hidden"></div>
+    </section>
+
+    <section class="feature-grid">
+      <article class="feature-card">
+        <div class="feature-icon">∑</div>
+        <h3>Algebra</h3>
+        <p>Linear, quadratic, polynomial equations, factorization and simplification.</p>
+      </article>
+      <article class="feature-card">
+        <div class="feature-icon">∫</div>
+        <h3>Calculus</h3>
+        <p>Derivatives, integrals, limits and symbolic calculus expressions.</p>
+      </article>
+      <article class="feature-card">
+        <div class="feature-icon">θ</div>
+        <h3>Trigonometry</h3>
+        <p>Work with sin, cos, tan and common trigonometric identities.</p>
+      </article>
+      <article class="feature-card">
+        <div class="feature-icon">▣</div>
+        <h3>Image Math</h3>
+        <p>Upload a clear photo of a math problem and OCR will read it for solving.</p>
+      </article>
+      <article class="feature-card">
+        <div class="feature-icon">[]</div>
+        <h3>Symbolic Math</h3>
+        <p>Get exact symbolic results instead of only decimal approximations.</p>
+      </article>
+      <article class="feature-card">
+        <div class="feature-icon">∞</div>
+        <h3>Free to Use</h3>
+        <p>No OpenAI API key or server is required for the basic web app.</p>
+      </article>
+    </section>
+
+    <section class="howto">
+      <div class="section-title">
+        <span class="eyebrow">HOW IT WORKS</span>
+        <h2>Three simple steps</h2>
+      </div>
+      <div class="steps">
+        <div class="step"><b>01</b><span>Type your math problem or upload a clear image.</span></div>
+        <div class="step"><b>02</b><span>FAIZAN Math AI reads and processes the expression.</span></div>
+        <div class="step"><b>03</b><span>Get the symbolic result directly in your browser.</span></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-brand">∑ FAIZAN Math AI</div>
+    <p>Free Math & Equation Solver</p>
+    <p class="developer">Developed by <strong>FAIZAN</strong></p>
+    <p class="copyright">© 2026 FAIZAN. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
